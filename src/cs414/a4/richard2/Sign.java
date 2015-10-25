@@ -15,5 +15,14 @@ class Sign {
   public String status_as_string() {
     return state;
   }
+  
+  private signStatus status;
+  
+  public void updateSign(boolean isFull) {
+	  if(isFull)
+		  status  = signStatus.full;
+	  else
+		  status  = signStatus.available;
+  }
 
 }

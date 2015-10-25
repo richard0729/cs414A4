@@ -1,23 +1,22 @@
 package cs414.a4.richard2;
 
-/*
-class EntranceController extends Controller {
+public class EntryViewer extends Viewer {
 
-	  private Garage garage;
-	  private GarageView garage_view;
-	  private EntranceKiosk kiosk;
+	private Garage garage;
+	  private GarageViewer garage_view;
+	  private EntryKiosk kiosk;
 
-	  public EntranceKioskController(Garage garage) {
+	  public EntryViewer(Garage garage) {
 	    this.garage = garage;
-	    garage_view = new GarageView(garage);
+	    garage_view = new GarageViewer(garage);
 	    kiosk = garage.entrance_kiosk();
 	  }
-
+	  /*
 	  public void print_status() {
 	    clearscreen();
 	    garage_view.print_garage_status();
 	  }
-
+		*/
 	  public void purchase_ticket() {
 	    if(! kiosk.can_purchase()) {
 	      System.out.println("Cannot purchase ticket: " + kiosk.no_purchase_reason());
@@ -26,7 +25,7 @@ class EntranceController extends Controller {
 	    }
 	    Ticket ticket = kiosk.purchase_ticket();
 	    kiosk.print_ticket(ticket);
-	    System.out.println("Generated ticket # " + ticket.id());
+	    System.out.println("Generated ticket # " + ticket.getId());
 	    String ticket_printed = prompt_string("[Ticket printed? Y/n] ", "y");
 	    if(!ticket_printed.equals("y")) {
 	      kiosk.printing_failed(ticket);
@@ -46,7 +45,7 @@ class EntranceController extends Controller {
 
 	  public void run() {
 	    while(true) {
-	      print_status();
+	    	garage_view.print_status();
 	      int choice = prompt_menu("Garage Entrance Kiosk", new String[]{
 	        "Purchase Ticket",
 	    //    "Maintenance Mode",
@@ -66,5 +65,6 @@ class EntranceController extends Controller {
 	      }
 	    }
 	  }
-	}
-*/
+
+	  
+}

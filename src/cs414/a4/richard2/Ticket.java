@@ -18,7 +18,7 @@ class Ticket {
 
   public Ticket(TicketTransaction ticketTrans) {    
     this.ticketTrans = ticketTrans;
-    this.id = ticketTrans.increaseId();
+    //this.id = ticketTrans.increaseId();
   }
   
   public Ticket(int ticketId) {    
@@ -28,16 +28,17 @@ class Ticket {
   /* Accessors */
 
   public int getId() { return id; }
+  public void setId(int m_Id) { this.id = m_Id; }
 
   public DateTime getEntryTime() { return entryTime; }
   
-  Ticket getEntryTime(DateTime m_entryTime) {
+  Ticket setEntryTime(DateTime m_entryTime) {
     this.entryTime = m_entryTime;
     return this;
   }
   public Ticket enter_now() {
 	entryTime = new DateTime();
-    is_in_garage(true);
+	setIsExist(true);
     return this;
   }
 
@@ -49,14 +50,14 @@ class Ticket {
   
   public Ticket exitNow() {
 	  this.exitTime = new DateTime();
-	  is_in_garage(false);
+	  setIsExist(false);
     return this;
   }
 
-  public boolean is_in_garage() { return this.isExist; }
-  public Ticket is_in_garage(boolean new_is_in_garage) {
-	this.isExist = new_is_in_garage;
-	ticketTrans.update_capacity();
+  public boolean getIsExist() { return this.isExist; }
+  public Ticket setIsExist(boolean new_isExist) {
+	this.isExist = new_isExist;
+	ticketTrans.updateSpace();
     return this;
   }
 
@@ -73,12 +74,12 @@ class Ticket {
   }
   */
 
-  public void void_ticket() {
-    is_in_garage(false);
+  public void voidTicket() {
+	setIsExist(false);
     this.isVoid = true;
   }
 
-  public double calculate_charge(double hourly_rate) {
+  public double calculateFee(double hourly_rate) {
     DateTime d = new DateTime();
     Hours time_in_garage = Hours.hoursBetween(entryTime, d);
     return hourly_rate * (time_in_garage.getHours() + 1);
