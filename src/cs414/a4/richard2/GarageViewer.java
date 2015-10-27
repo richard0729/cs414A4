@@ -21,60 +21,64 @@ public class GarageViewer extends Viewer  {
 	  
 	  public void print_garage_status() {
 		    DateTime now = new DateTime();
-		    System.out.print("Entrace Gate: " + garage.entrance_gate.state_as_string());
-		    System.out.print("\tExit Gate: " + garage.exit_gate.state_as_string());
-		    System.out.print("\tSign: " + garage.capacity_sign.status_as_string());
+		    int capacity = garage.getMaxSpaces() - garage.getUsedSpaces();
+		    System.out.print("Entry Gate: " + garage.entryGate.state_as_string());
+		    //System.out.print("\tExit Gate: " + garage.exit_gate.state_as_string());
+		    //System.out.print("\tSign: " + garage.sign.status_as_string());
+		    System.out.print("\tSign Garage: " + garage.sign.getStatus());
 		    System.out.println("");
 		    // System.out.println("Capacity: " + garage.capacity_sign.status_as_string());
 		    System.out.print("Current time: " + now.toString("KK:mm aa"));
 		    // System.out.print("\t     Rate: " + String.format("$%0.02f/hr", garage.hourly_rate()));
 		    DecimalFormat money = new DecimalFormat("$0.00");
-		    double rate = garage.hourly_rate();
+		    double rate = garage.getFeeRate();
 		    System.out.print("\t     Rate: " + money.format(rate) + "/hr");
-		    System.out.print("\tCapacity: " + garage.ticketTrans.getActiveTickets().size() + "/" + garage.max_capacity());
+		    //System.out.print("\tCapacity: " + garage.ticketTrans.getActiveTickets().size() + "/" + garage.getMaxSpaces());
+		    System.out.print("\t	Max Spaces: " + garage.getMaxSpaces());
+		    System.out.print("\t	Capacity: " + capacity );
 		    System.out.println("");
 		    System.out.println("");
 		  }
 
 
 	  public void modify_rate() {
-	    String new_rate_string = prompt_string("New rate ($/hr): ", "");
-	    double new_rate;
+	    String input = printString("New rate ($/hr): ", "");
+	    double newRate;
 	    try {
-	      new_rate = Double.parseDouble(new_rate_string);
+	    	newRate = Double.parseDouble(input);
 	    }
 	    catch (NumberFormatException e) {
 	      System.out.println("Invalid rate!");
 	      return;
 	    }
-	    if(new_rate <= 0.0) {
+	    if(newRate <= 0.0) {
 	      System.out.println("Invalid rate!");
 	      return;
 	    }
-	    garage.hourly_rate(new_rate);
+	    garage.setFeeRate(newRate);
 	  }
 
 	  public void modify_max_capacity() {
-	    String new_max_capacity_string = prompt_string("New max capacity: ", "");
-	    int new_max_capacity;
+	    String input = printString("New max Spaces: ", "");
+	    int newMax;
 	    try {
-	      new_max_capacity = Integer.parseInt(new_max_capacity_string);
+	    	newMax = Integer.parseInt(input);
 	    }
 	    catch (NumberFormatException e) {
-	      System.out.println("Invalid max capacity!");
+	      System.out.println("Invalid max Spaces!");
 	      return;
 	    }
-	    if(new_max_capacity <= 0) {
-	      System.out.println("Invalid max capacity!");
+	    if(newMax <= 0) {
+	      System.out.println("Invalid max Spaces!");
 	      return;
 	    }
-	    garage.max_capacity(new_max_capacity);
+	    garage.setMaxSpaces(newMax);
 	  }
 
 	  public void garage_management() {
 	    while(true) {
 	      print_status();
-	      int choice = prompt_menu("Garage Management", new String[]{
+	      int choice = printMenu("Garage Management", new String[]{
 	        "Modify rate",
 	        "Modify maximum capacity",
 	        // "Occupation reports",
@@ -103,8 +107,8 @@ public class GarageViewer extends Viewer  {
 	  public void main_menu() {
 	    while(true) {
 	      print_status();
-	      int choice = prompt_menu("Main", new String[]{
-	        "Garage Entrance Kiosk",
+	      int choice = printMenu("Main", new String[]{
+	        "Garage Entry Kiosk",
 	        "Garage Exit Kiosk",
 	        "Garage Management",
 	        "[Exit Simulator]"
@@ -112,9 +116,9 @@ public class GarageViewer extends Viewer  {
 
 	      switch (choice) {
 	        case 1: // stuff
-	          EntryViewer entrance_kiosk = new EntryViewer(garage);
-	          entrance_kiosk.run();
-	          // this.garage_entrance_kiosk_menu();
+	          EntryViewer entryViewer = new EntryViewer(garage);
+	          entryViewer.run();
+	          // this.garage_entryViewer_menu();
 	          break;
 	        case 2:
 	          //ExitKioskController exit_kiosk = new ExitKioskController(garage);
@@ -138,8 +142,8 @@ public class GarageViewer extends Viewer  {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Garage garage = new Garage();
-	    GarageViewer garage_controller = new GarageViewer(garage);
-	    garage_controller.main_menu();
+	    GarageViewer mViewer = new GarageViewer(garage);
+	    mViewer.main_menu();
 	  }
 
 	

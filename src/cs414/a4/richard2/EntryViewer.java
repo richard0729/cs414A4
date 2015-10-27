@@ -9,7 +9,7 @@ public class EntryViewer extends Viewer {
 	  public EntryViewer(Garage garage) {
 	    this.garage = garage;
 	    garage_view = new GarageViewer(garage);
-	    kiosk = garage.entrance_kiosk();
+	    kiosk = garage.getEntry();
 	  }
 	  /*
 	  public void print_status() {
@@ -20,18 +20,20 @@ public class EntryViewer extends Viewer {
 	  public void purchase_ticket() {
 	    if(! kiosk.can_purchase()) {
 	      System.out.println("Cannot purchase ticket: " + kiosk.no_purchase_reason());
-	      prompt_continue();
+	      //prompt_continue();
+	      printContinue();
 	      return;
 	    }
 	    Ticket ticket = kiosk.purchase_ticket();
 	    kiosk.print_ticket(ticket);
 	    System.out.println("Generated ticket # " + ticket.getId());
-	    String ticket_printed = prompt_string("[Ticket printed? Y/n] ", "y");
+	    //String ticket_printed = prompt_string("[Ticket printed? Y/n] ", "y");
+	    String ticket_printed = printString("[Ticket printed? Y/N] ", "y");
 	    if(!ticket_printed.equals("y")) {
 	      kiosk.printing_failed(ticket);
 	      System.out.println("Printing error - Ticket VOIDED. Sorry.");
 	    } else {
-	      String gate_opened = prompt_string("[Gate opened? Y/n] ", "y");
+	      String gate_opened = printString("[Gate opened? Y/N] ", "y");
 	      if(!gate_opened.equals("y")) {
 	        kiosk.gate_failed(ticket);
 	        System.out.println("Gate error - Ticket VOIDED. Sorry.");
@@ -40,13 +42,14 @@ public class EntryViewer extends Viewer {
 	        System.out.println("[Gate auto open/close. You have entered garage.]");
 	      }
 	    }
-	    prompt_continue();
+	    //prompt_continue();
+	    printContinue();
 	  }
 
 	  public void run() {
 	    while(true) {
 	    	garage_view.print_status();
-	      int choice = prompt_menu("Garage Entrance Kiosk", new String[]{
+	      int choice =printMenu("Garage Entrance Kiosk", new String[]{
 	        "Purchase Ticket",
 	    //    "Maintenance Mode",
 	        "[Test System - Return to Main Menu]"

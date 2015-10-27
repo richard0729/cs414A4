@@ -3,30 +3,37 @@ package cs414.a4.richard2;
 public class Garage {
 
 	
-	  public Sign capacity_sign;
+	public Sign sign;
 
-	  public EntryKiosk entrance_kiosk;
-	  public Gate entrance_gate;
+	public EntryKiosk entry;
+	public Gate entryGate;
 
 	  //public ExitKiosk exit_kiosk;
-	  public Gate exit_gate;
+	  private Gate exit_gate;
+	  
+	  private int maxSpaces = 3;
+	  public int usedSpaces = 0;
+	  
+	  //public Spaces spaces;
 
-	  public TicketTransaction ticketTrans;
+	  private TicketTransaction ticketTrans;
 
-	  public double hourly_rate = 5.0;
-	  public int max_capacity = 3;
+	  private double feeRate = 10.0;
+	  
 
 	  public Garage() {
-	    capacity_sign  = new Sign();
-	    ticketTrans       = new TicketTransaction(capacity_sign, max_capacity);
-	    entrance_gate  = new Gate();
-	    entrance_kiosk = new EntryKiosk(entrance_gate, ticketTrans);
+	    sign  = new Sign();
+	    //spaces = new Spaces();
+	    //ticketTrans       = new TicketTransaction(sign, spaces);
+	    ticketTrans       = new TicketTransaction(this);
+	    entryGate  = new Gate();
+	    entry = new EntryKiosk(entryGate, ticketTrans);
 	    exit_gate      = new Gate();
 	    //exit_kiosk = new ExitKiosk(exit_gate, ticketTrans);
 	  }
 
-	  public EntryKiosk entrance_kiosk() {
-	    return entrance_kiosk;
+	  public EntryKiosk getEntry() {
+	    return entry;
 	  }
 
 	  /*
@@ -35,18 +42,28 @@ public class Garage {
 	  }
 	  */
 
-	  public double hourly_rate() { return hourly_rate; }
-	  public Garage hourly_rate(double new_rate) {
-	    hourly_rate = new_rate;
+	  public double getFeeRate() { return feeRate; }
+	  public Garage setFeeRate(double newRate) {
+	    feeRate = newRate;
 	    return this;
 	  }
 
-	  public int max_capacity() { return max_capacity; }
-	  public Garage max_capacity(int new_capacity) {
-	    max_capacity = new_capacity;
-	    ticketTrans.setMaxSpaces(new_capacity);
+	  public int getMaxSpaces() { return maxSpaces; }
+	  public Garage setMaxSpaces(int newMax) {
+	    maxSpaces = newMax;
+		 // this.spaces.setMaxSpaces(newMax); 
+	    //ticketTrans.setMaxSpaces(new_capacity);
 	    ticketTrans.updateSpace();
 	    return this;
+	  }
+	  
+	  public int getUsedSpaces() { return usedSpaces; }
+	  public void setUsedSpaces(int newUsed) {
+		  usedSpaces = newUsed;
+		 // this.spaces.setMaxSpaces(newMax); 
+	    //ticketTrans.setMaxSpaces(new_capacity);
+	    //ticketTrans.updateSpace();
+	    //return this;
 	  }
 
 	  

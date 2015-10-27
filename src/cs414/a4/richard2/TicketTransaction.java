@@ -10,14 +10,17 @@ class TicketTransaction {
   private List<Ticket> tickets = new ArrayList<Ticket>();
   private List<Ticket> activeTickets = new ArrayList<Ticket>();
 
-  private Sign capacitySign;
-  private int maxSpaces;
+  //private Sign sign;
+  //private int maxSpaces;
   private int numCount =0;
+  private Spaces spaces;
+  private Garage garage;
 
   public TicketTransaction() { }
-  public TicketTransaction(Sign capacitySign, int maxSpaces) {
-    this.capacitySign = capacitySign;
-    this.maxSpaces = maxSpaces;
+  public TicketTransaction(Garage mGarage) {
+    this.garage = mGarage;
+    //this.maxSpaces = maxSpaces;
+    //this.spaces = mSpaces;
   }
   
   public int increaseId() {
@@ -25,10 +28,12 @@ class TicketTransaction {
 	    return numCount;
 	  }
 
+  /*
   public TicketTransaction setMaxSpaces(int newSpaces) {
     maxSpaces = newSpaces;
     return this;
   }
+  */
 
   public Ticket issueTicket() {
     //Ticket mTicket = new Ticket(this.increaseId());
@@ -71,19 +76,22 @@ class TicketTransaction {
   */
   public void updateSpace() {
 	  boolean mFull = isFull();
-	  capacitySign.updateSign(mFull);
+	  //sign.updateSign(mFull);
+	  garage.sign.updateSign(mFull);
   }
   
   public boolean isFull() {
-    int ticket_count = getActiveTickets().size();
-    return ticket_count >= maxSpaces;
+	int msize = getActiveTickets().size();
+	garage.setUsedSpaces(msize);
+    //return garage.usedSpaces >= this.spaces.getMaxSpaces();
+	return msize >= this.garage.getMaxSpaces();
   }
 /*
   public void update_sign() {
     if(isFull()) {
-    	capacitySign.full();
+    	sign.full();
     } else {
-    	capacitySign.available();
+    	sign.available();
     }
 */
   

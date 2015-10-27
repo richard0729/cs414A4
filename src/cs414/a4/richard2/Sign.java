@@ -16,7 +16,13 @@ class Sign {
     return state;
   }
   
-  private signStatus status;
+  private signStatus status =signStatus.available;
+  
+  public String getStatus()
+  {
+	  return status.toString();
+	  //return "";
+  }
   
   public void updateSign(boolean isFull) {
 	  if(isFull)
