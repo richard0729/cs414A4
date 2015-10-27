@@ -16,7 +16,7 @@ public class EntryViewer extends Viewer {
 	    clearscreen();
 	    garage_view.print_garage_status();
 	  }
-		*/
+		
 	  public void purchase_ticket() {
 	    if(! kiosk.can_purchase()) {
 	      System.out.println("Cannot purchase ticket: " + kiosk.no_purchase_reason());
@@ -45,6 +45,31 @@ public class EntryViewer extends Viewer {
 	    //prompt_continue();
 	    printContinue();
 	  }
+	  */
+	  
+	  public void purchase_ticket() {
+		    if(! kiosk.can_purchase()) {
+		      System.out.println("Cannot purchase ticket: " + kiosk.no_purchase_reason());
+		      //prompt_continue();
+		      printContinue();
+		      return;
+		    }
+		    Ticket ticket = kiosk.purchase_ticket();
+		    kiosk.print_ticket(ticket);
+		    System.out.println("Generated ticket # " + ticket.getId());
+		    //String ticket_printed = prompt_string("[Ticket printed? Y/n] ", "y");
+		    String ticket_printed = printString("[Ticket printed? Y/N] ", "y");
+		    if(!ticket_printed.equals("y")) {
+		      kiosk.printing_failed(ticket);
+		      System.out.println("Printing error - Ticket VOIDED. Sorry.");
+		    } else {		      
+		        kiosk.enter_success(ticket);
+		        System.out.println("[Gate auto open/close. You have entered garage.]");
+		      }
+		    
+		    //prompt_continue();
+		    printContinue();
+		  }
 
 	  public void run() {
 	    while(true) {

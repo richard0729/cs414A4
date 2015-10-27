@@ -57,7 +57,7 @@ class Ticket {
   public boolean getIsExist() { return this.isExist; }
   public Ticket setIsExist(boolean new_isExist) {
 	this.isExist = new_isExist;
-	ticketTrans.updateSpace();
+	//ticketTrans.updateSpace();
     return this;
   }
 

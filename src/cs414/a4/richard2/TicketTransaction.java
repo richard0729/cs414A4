@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 
 
 class TicketTransaction {
-
+/*
   private List<Ticket> tickets = new ArrayList<Ticket>();
   private List<Ticket> activeTickets = new ArrayList<Ticket>();
 
@@ -27,13 +27,6 @@ class TicketTransaction {
 	    ++numCount;
 	    return numCount;
 	  }
-
-  /*
-  public TicketTransaction setMaxSpaces(int newSpaces) {
-    maxSpaces = newSpaces;
-    return this;
-  }
-  */
 
   public Ticket issueTicket() {
     //Ticket mTicket = new Ticket(this.increaseId());
@@ -65,15 +58,7 @@ class TicketTransaction {
     return activeTickets;
   }
 
-  /*
-  public void updateSpace() {
-    int ticket_count = getActiveTickets().size();
-    if(ticket_count > maxSpaces) {
-      throw new IllegalStateException("Garage OverFull");
-    }
-    update_sign();
-  }
-  */
+
   public void updateSpace() {
 	  boolean mFull = isFull();
 	  //sign.updateSign(mFull);
@@ -86,13 +71,6 @@ class TicketTransaction {
     //return garage.usedSpaces >= this.spaces.getMaxSpaces();
 	return msize >= this.garage.getMaxSpaces();
   }
-/*
-  public void update_sign() {
-    if(isFull()) {
-    	sign.full();
-    } else {
-    	sign.available();
-    }
 */
   
 }
