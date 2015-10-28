@@ -1,18 +1,19 @@
 package cs414.a4.richard2;
 
-import org.joda.time.*;
+//import org.joda.time.*;
+import java.util.Date;
 
 public class Payment {
 
 	protected double amountFee;
 	protected double originalAmountFee;
-	protected DateTime datePaid;
+	protected Date datePaid;
 	protected PaymentType paymentType;
 	
 	public Payment(){}
    
 	public Payment(double ad, PaymentType pt){
-		datePaid = new DateTime();
+		datePaid = new Date();
 		paymentType = pt;
 		originalAmountFee = ad;
 		amountFee = ad;
@@ -31,11 +32,11 @@ public class Payment {
     }
 
 
-    public DateTime getDatePaid() {
+    public Date getDatePaid() {
         return datePaid;
     }
 
-    public void setDatePaid(DateTime datePaid) {
+    public void setDatePaid(Date datePaid) {
         this.datePaid = datePaid;
     }
     

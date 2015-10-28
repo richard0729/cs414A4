@@ -18,9 +18,9 @@ class Sign {
   
   private signStatus status =signStatus.available;
   
-  public String getStatus()
+  public signStatus getStatus()
   {
-	  return status.toString();
+	  return status;
 	  //return "";
   }
   

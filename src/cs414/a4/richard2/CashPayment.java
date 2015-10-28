@@ -1,6 +1,7 @@
 package cs414.a4.richard2;
 
-import org.joda.time.*;
+//import org.joda.time.*;
+import java.util.Date;
 
 public class CashPayment extends Payment {
 	
@@ -14,8 +15,10 @@ public class CashPayment extends Payment {
 	        this.amountFee = amountFee;   
 	        this.TotalPaid = totalPaid;
 	        this.balanceCash = totalPaid - amountFee;
-	        this.datePaid = new DateTime();        
+	        this.datePaid = new Date();   
+	        this.paymentType = PaymentType.Cash;
 	    }
+	/*
 	 public void makeInitialCashPayment(){
 			amountFee = amountFee - TotalPaid;
 			if(amountFee<0) balanceCash = amountFee *-1;
@@ -24,7 +27,7 @@ public class CashPayment extends Payment {
 			amountFee = amountFee - TotalPaid;
 			if(amountFee<0) balanceCash = amountFee *-1;
 		}
-
+	*/
 		public double getBalanceCash(){
 			return balanceCash;
 		}

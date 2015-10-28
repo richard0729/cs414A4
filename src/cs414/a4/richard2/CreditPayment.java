@@ -1,6 +1,6 @@
 package cs414.a4.richard2;
 
-import org.joda.time.*;
+//import org.joda.time.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,9 +18,9 @@ public class CreditPayment extends Payment {
     {
         this.cardNumber = cardNumber;
         this.expireDate = expireDate;
-        //this.datePaid = datePaid;
+        this.datePaid = new Date(); 
         this.amountFee = amountFee;
-        
+        this.paymentType = PaymentType.Credit;
     }
     
     public String getCardNumber() {

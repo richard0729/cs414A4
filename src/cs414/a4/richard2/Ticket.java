@@ -1,6 +1,10 @@
 package cs414.a4.richard2;
 
-import org.joda.time.*;
+//import org.joda.time.*;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 class Ticket {
 
@@ -9,11 +13,12 @@ class Ticket {
   private TicketTransaction ticketTrans;
 
   private int id; /** Simple integer-based ticket number */
-  private DateTime entryTime;
-  private DateTime exitTime;
+  private Date entryTime;
+  private Date exitTime;
   private boolean isExist = false;
   private boolean isPaid = false;
   private boolean isVoid = false;
+  private double HOURS_IN_MILLI = 1000*60*60;
   // private Payment payment;
 
   public Ticket(TicketTransaction ticketTrans) {    
@@ -26,30 +31,37 @@ class Ticket {
 	  }
 
   /* Accessors */
-
+  public boolean getIsVoid() { return isVoid; }
+  
   public int getId() { return id; }
   public void setId(int m_Id) { this.id = m_Id; }
 
-  public DateTime getEntryTime() { return entryTime; }
+  public Date getEntryTime() { return entryTime; }
   
-  Ticket setEntryTime(DateTime m_entryTime) {
+  public void setEntryTime(Date m_entryTime) {
     this.entryTime = m_entryTime;
-    return this;
   }
+  
+  public Date getExitTime() { return exitTime; }
+  
+  public void setExitTime(Date m_exitTime) {
+    this.exitTime = m_exitTime;
+  }
+  
   public Ticket enter_now() {
-	entryTime = new DateTime();
+	entryTime = new Date();
 	setIsExist(true);
     return this;
   }
 
-  public DateTime getExitTime() { return this.exitTime; }
-  public Ticket getExitTime(DateTime new_exit_time) {
+  //public Date getExitTime() { return this.exitTime; }
+  public Ticket getExitTime(Date new_exit_time) {
 	this.exitTime = new_exit_time;
     return this;
   }
   
   public Ticket exitNow() {
-	  this.exitTime = new DateTime();
+	  this.exitTime = new Date();
 	  setIsExist(false);
     return this;
   }
@@ -80,9 +92,16 @@ class Ticket {
   }
 
   public double calculateFee(double hourly_rate) {
-    DateTime d = new DateTime();
-    Hours time_in_garage = Hours.hoursBetween(entryTime, d);
-    return hourly_rate * (time_in_garage.getHours() + 1);
+    //Date d = new Date();
+    //Hours time_in_garage = Hours.hoursBetween(entryTime, d);
+    //Hours time_in_garage = Hours.hoursBetween(entryTime, d);
+    //return hourly_rate * (time_in_garage.getHours() + 1);
+	  
+	  //double hourInGarage =  (exitTime.getTime()/HOURS_IN_MILLI) - (entryTime.getTime()/HOURS_IN_MILLI) +1;            
+	  long diff =  exitTime.getTime() - entryTime.getTime();
+	  long hourInGarage = diff / (60 * 60 * 1000) % 24 +1;
+	  return hourly_rate *hourInGarage;
+      
   }
 
 }
